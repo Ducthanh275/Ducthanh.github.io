@@ -1,0 +1,61 @@
+class Fraction {
+    int a, b;
+public:
+    Fraction(int a = 1, int b = 1);
+    friend  ostream& operator<<(ostream& os, const Fraction& f);
+    Fraction  operator+(const Fraction& f) {
+        int ts1, ms1;
+        ts1 = a*f.b + b*f.a;
+        ms1 = b * f.b;
+        return Fraction(ts1, ms1);
+    }
+     Fraction operator -(const Fraction& f) {
+        int ts1, ms1;
+        ts1 = a*f.b – b*f.a;
+        ms1 = b * f.b;
+        return Fraction(ts1, ms1);
+    }
+     Fraction operator*(const Fraction& f) {
+        int ts1, ms1;
+
+        ts1 = a*f.a;
+        ms1 = b * f.b;
+        return Fraction(ts1, ms1);
+    }
+     Fraction  operator/(const Fraction& f) {
+        int ts1, ms1;
+
+        ts1 = a*f.b;
+        ms1 = b * f.a;
+        return Fraction(ts1, ms1);
+    }
+    void simplify(){
+        int temp = __gcd(a, b);
+        a = a/ temp;
+        b /= temp;
+    }
+    bool operator>(const Fraction& f) {
+        int ts1, ms1;
+        ts1 = a*f.b – b*f.a;
+        ms1 = b * f.b;
+        return (ts1*ms1>0);
+    }
+    bool operator<(const Fraction& f) {
+        if(f>*this)
+        return true;
+        return false;
+    }
+    };
+        ostream & operator << (ostream& os, const Fraction& f){
+            if (f.b == 0) {
+            os << "invalid";
+            return os;
+        }
+        f.simplify();
+
+        if (f.b == 1) os << f.a;
+        else if (f.b == -1) os << -f.a;
+        else if (f.a * f.b > 0) os << abs(f.a) << "/" << abs(f.b);
+        else os << -abs(f.a) << "/" << abs(f.b);
+        return os;
+    }
